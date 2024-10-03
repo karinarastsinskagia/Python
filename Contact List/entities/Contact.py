@@ -1,62 +1,86 @@
+from typing import Dict
+
 import mysql.connector
-from docutils.nodes import contact
+from jedi.api.completion_cache import get_type
 
 mydb = mysql.connector.connect(user='root', password='password', host='127.0.0.1', database='python_mysql')
 
 
-class Contact:
+def add_new_contact(user_id:int,first_name:str, last_name:str, number:str, address:str):
+    cursor = mydb.cursor()
+    cursor.execute(f"INSERT INTO contacts (user_id, first_name, last_name, number, address) VALUES ('{user_id}','{first_name}', '{last_name}','{number}', '{address}')")
+    mydb.commit()
 
-    # def __init__(self, id,first_name,last_name,number,address):
-    #     self.id = id
-    #     self.first_name = first_name
-    #     self.last_name = last_name
-    #     self.number = number
-    #     self.address = number
+    cursor.close()
+    return None
 
-    def add_new_contact(self, user_id:int,first_name:str, last_name:str, number:str, address:str):
-        cursor = mydb.cursor()
-        cursor.execute(f"INSERT INTO contacts (user_id, first_name, last_name, number, address) VALUES ('{user_id}','{first_name}', '{last_name}','{number}', '{address}')")
-        mydb.commit()
+def update_contact(contactid:int, args:dict):
+    #  first_name:None, last_name:None, number:None, address:None
+    cursor = mydb.cursor()
 
-        # cursor.execute(f"SELECT * FROM contacts WHERE idcontacts = {cursor.lastrowid}")
-        # rows = cursor.fetchall()
-        #
-        # # Display the results
-        # for row in rows:
-        #     user_id, username = row
-        #     print(f"The new user has id : {user_id} - and full name : {username}")
+    query_part = []
+    values = []
+    for key,value in args.items():
+        query_part.append(key +"= %s")
+        values.append(value)
 
-        cursor.close()
+    query = f"UPDATE contacts SET {', '.join(query_part)} WHERE idcontacts = {contactid}"
+
+    cursor.execute(query,values)
+    mydb.commit()
+    cursor.close()
+
+    return None
+
+def delete_contact(contactid:int):
+    cursor = mydb.cursor()
+    cursor.execute(f"DELETE FROM contacts WHERE idcontacts = {contactid}")
+    mydb.commit()
+    cursor.close()
+
+    return None
+
+def get_contact_list_owner(contactid:int):
+    cursor = mydb.cursor()
+    cursor.execute(
+        f"SELECT users.username FROM users JOIN contacts ON users.idusers = contacts.user_id WHERE contacts.idcontacts = {contactid}")
+    rows = cursor.fetchall()
+
+    # Display the results
+    for row in rows:
+        username = row
+        print(f"User Name : {username} (for the given contact)")
+    # Close the cursor and connection
+    cursor.close()
+
+    return None
+
+def get_contact(contact_id:int):
+    cursor = mydb.cursor()
+    cursor.execute(f"SELECT  first_name, last_name, address, number FROM contacts WHERE idcontacts = {contact_id}")
+    rows = cursor.fetchall()
+
+    if not rows:
+        print("There is no Contact with the given id")
         return None
 
-    def update_contact(self, id, first_name, last_name, number, address):
-        self.id = id
-        self.first_name = first_name
-        self.last_name = last_name
-        self.number = number
-        self.address = number
+    # Display the results
+    for row in rows:
+        first_name, last_name, address, number = row
+        print(f"First Name : {first_name} - Last Name : {last_name} - Address : {address} - Number : {number}")
+    # Close the cursor and connection
+    cursor.close()
 
-    def get_contact(self, id, first_name, last_name, number, address):
-        self.id = id
-        self.first_name = first_name
-        self.last_name = last_name
-        self.number = number
-        self.address = number
+    return None
 
-    def delete_contact(self, id, first_name, last_name, number, address):
-        self.id = id
-        self.first_name = first_name
-        self.last_name = last_name
-        self.number = number
-        self.address = number
-
-    def get_contact_list_owner(self, id, first_name, last_name, number, address):
-        self.id = id
-        self.first_name = first_name
-        self.last_name = last_name
-        self.number = number
-        self.address = number
+######### Methods execution (examples) ##########
 
 
-contact = Contact()
-contact.add_new_contact(1,'T.','Ol.','123445','Foo Bar')
+#add_new_contact(1,'T.','Ol.','123445','Foo Bar')
+#get_contact_list_owner(1)
+#delete_contact(6)
+args: dict[str, str] = {"first_name" : "K.", "last_name" : "Op.",}
+update_contact(1, args)
+args: dict[str, str] = {"number" : "89890"}
+update_contact(1, args)
+get_contact(1)
