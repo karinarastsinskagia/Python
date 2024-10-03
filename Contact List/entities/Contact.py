@@ -1,8 +1,4 @@
-from typing import Dict
-
 import mysql.connector
-from jedi.api.completion_cache import get_type
-
 mydb = mysql.connector.connect(user='root', password='password', host='127.0.0.1', database='python_mysql')
 
 
@@ -75,12 +71,12 @@ def get_contact(contact_id:int):
 
 ######### Methods execution (examples) ##########
 
-
 #add_new_contact(1,'T.','Ol.','123445','Foo Bar')
 #get_contact_list_owner(1)
 #delete_contact(6)
-args: dict[str, str] = {"first_name" : "K.", "last_name" : "Op.",}
-update_contact(1, args)
-args: dict[str, str] = {"number" : "89890"}
-update_contact(1, args)
-get_contact(1)
+
+# args: dict[str, str] = {"first_name" : "K.", "last_name" : "Op.",}
+# update_contact(1, args)
+# args: dict[str, str] = {"number" : "89890"}
+# update_contact(1, args)
+# get_contact(1)
