@@ -2,7 +2,6 @@ import mysql.connector
 
 mydb = mysql.connector.connect(user='root', password='password', host='127.0.0.1', database='python_mysql')
 
-
 def get_all():
     cursor = mydb.cursor()
     cursor.execute('SELECT * FROM users')
@@ -103,17 +102,12 @@ def get_users_contact_list(user_id:int):
 
 # get_all()
 #create_new_user("Kathrin Hill")
-#get_all()
-#
-# get_a_user(1)
+#get_a_user(1)
 #get_a_user(45)
-#
 #create_new_user("George Orwell")
-#.update_username(1,"Kathrin Hilton")
+#update_username(1,"Kathrin Hilton")
 # delete_user(2)
-#
-get_users_contact_list(1)
-
+#get_users_contact_list(1)
 #get_users_and_contacts()
 
 

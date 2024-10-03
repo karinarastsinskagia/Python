@@ -1,8 +1,13 @@
-This is a simple project for supporting contact list.
-Each created user can have/create its own contact list.
+This is a simple project for supporting users' contact lists.
+It represents a one-to-many relationship, a connection between two entities
 
+You will find a basic implementation of CRUD actions (and some extra) which have been implemented using mysql queries.
 
-**Database**
+### Entities
+User
+Contacts
+
+### Database
 Using MysqlWorkbench environment & MySQL Community Server 9.0.1
 
 Tables :
