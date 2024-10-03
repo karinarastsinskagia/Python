@@ -100,7 +100,7 @@ def get_users_contact_list(user_id:int):
 
 ######### Methods execution (examples) ##########
 
-# get_all()
+get_all()
 #create_new_user("Kathrin Hill")
 #get_a_user(1)
 #get_a_user(45)
