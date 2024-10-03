@@ -6,7 +6,7 @@ python_obj = json.loads(json_obj)
 print("\nJSON data:")
 print(python_obj)
 print("\nName: ",python_obj["Name"])
-print("Class: ",python_obj["Age"])
+print("Student's Class: ",python_obj["Age"])
 print("Age: ",python_obj["Gender"])
 #
 #Convert a python obs to a json obj

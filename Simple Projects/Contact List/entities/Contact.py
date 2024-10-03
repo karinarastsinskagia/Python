@@ -72,7 +72,7 @@ def get_contact(contact_id:int):
 ######### Methods execution (examples) ##########
 
 #add_new_contact(1,'T.','Ol.','123445','Foo Bar')
-#get_contact_list_owner(1)
+get_contact_list_owner(1)
 #delete_contact(6)
 
 # args: dict[str, str] = {"first_name" : "K.", "last_name" : "Op.",}
