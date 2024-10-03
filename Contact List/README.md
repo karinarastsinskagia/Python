@@ -8,9 +8,9 @@ User
 Contacts
 
 ### Database
-Using MysqlWorkbench environment & MySQL Community Server 9.0.1
+Using **MysqlWorkbench** environment & MySQL Community Server 9.0.1
 
-Tables :
+**Tables :**
 
 CREATE TABLE `python_mysql`.`users` (
   `idusers` INT NOT NULL AUTO_INCREMENT ,
