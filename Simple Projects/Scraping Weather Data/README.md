@@ -1,0 +1,2 @@
+This is a simple project to scrape weather data for a city and get umbrella reminder on email.
+If the weather condition turns out to be rainy or cloudy, this program will send an email with an “umbrella reminder” message to the recipient. 
